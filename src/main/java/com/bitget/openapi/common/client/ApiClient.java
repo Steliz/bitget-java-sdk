@@ -16,6 +16,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
+import org.apache.commons.lang3.StringUtils;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -111,6 +112,9 @@ public class ApiClient {
             String timestamp = String.valueOf(System.currentTimeMillis());
             String contentType = "application/json";
             try {
+                if (StringUtils.isEmpty(clientParameter.getApiKey())) {
+                    return chain.proceed(original);
+                }
                 String sign = SignatureUtils.generate(timestamp,
                         original.method(),
                         original.url().url().getPath(),

@@ -19,9 +19,6 @@ public class BitgetRestClient {
     private BitgetRestClient(Builder builder) {
         configuration = builder.configuration;
         Validate.notNull(configuration, "configuration is null");
-        Validate.notNull(configuration.getApiKey(), "apiKey is null");
-        Validate.notNull(configuration.getSecretKey(), "secretKey is null");
-        Validate.notNull(configuration.getPassphrase(), "passphrase is null");
 
         configuration.setBaseUrl(StringUtils.defaultIfBlank(configuration.getBaseUrl(), HttpHeader.BASE_URL));
         configuration.setTimeout(ObjectUtils.defaultIfNull(configuration.getTimeout(), HttpHeader.TIME_OUT));
